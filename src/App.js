@@ -5,9 +5,9 @@ import MainContainer from './components/MainContainer';
 function App() {
   return (
     <ChakraProvider>
-    <div className="">
-      <MainContainer></MainContainer>
-    </div>
+      <div className="">
+        <MainContainer></MainContainer>
+      </div>
     </ChakraProvider>
   );
 }

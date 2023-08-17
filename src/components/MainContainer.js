@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState } from "react";
 import NewTaskModal from "./NewTaskModal";
 import Task from "./Task";
 import { Input } from '@chakra-ui/react'
+import { useDisclosure } from "@chakra-ui/react";
 
 const MainContainer = (props) => {
     let date = new Date();
@@ -28,11 +29,12 @@ const MainContainer = (props) => {
     const [taskBody, setTaskBody] = useState("");
     const [deadline, setDeadline] = useState();
     const [tasks, setTasks] = useState([]);
+    const [flag, setFlag] = useState();
 
     const handleSubmit = event => {
         event.preventDefault();
-        if (taskBody.length === 0 || !deadline) {
-            console.log("Error");
+        if (taskBody.length === 0 || !deadline || taskBody.length > 50) {
+            setFlag(false);
         }
         else {
             let newTask = {description: taskBody, deadline: deadline}
@@ -40,8 +42,18 @@ const MainContainer = (props) => {
                 ...tasks,
                 newTask,
             ]);
+            setFlag(true);
+            setTaskBody("");
+            setDeadline("");
         }
-        setTaskBody("");
+    }
+
+    const removeTask = (index) => {
+        if (index !== -1) {
+            const firstArr = tasks.slice(0, index);
+            const secondArr = tasks.slice(index + 1);
+            setTasks([...firstArr, ...secondArr]);
+        }
     }
 
     return (
@@ -54,14 +66,14 @@ const MainContainer = (props) => {
                 <div class="content">
                     {tasks.length === 0 ? (
                         <div class="no-tasks">NO TASKS EXIST TODAY</div>
-                    ) : (tasks.map(task =>
-                        <Task description={task.description} deadline={task.deadline}/>))}
+                    ) : (tasks.map((task, index) =>
+                        <Task remove={removeTask} taskID={index} description={task.description} deadline={task.deadline}/>))}
                 </div>
-                <NewTaskModal>
+                <NewTaskModal ref={(ref) => { this.child = ref; }}>
                     <div class="modal-form-container">
                         <form onSubmit={handleSubmit}>
                             <label for="task-input">TASK DESCRIPTION</label>
-                            <input id="task-input" value={taskBody} onChange={event => setTaskBody(event.target.value)}></input>
+                            <input id="task-input" placeholder="CHARACTER LIMIT: 50" value={taskBody} onChange={event => setTaskBody(event.target.value)}></input>
                             <br></br>
                             <label for="deadline-input">TASK DEADLINE</label>
                             <Input
@@ -72,7 +84,10 @@ const MainContainer = (props) => {
                                 value={deadline}
                                 onChange={event => setDeadline(event.target.value)}
                             />
-                            <button type="submit">ADD TASK</button>
+                            <button type="submit" id="add-task">ADD TASK</button>
+                            {flag && (
+                                <p>Task successfully added!</p>
+                            )}
                         </form>
                     </div>
                 </NewTaskModal>
