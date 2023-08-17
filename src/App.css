@@ -25,7 +25,7 @@
 .todo-header {
   width: 100%;
   height: 10%;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #72727286;
   padding: 10px 0;
   display: flex;
   justify-content: space-between;
@@ -34,7 +34,7 @@
 
 .content {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   width: 100%;
@@ -110,9 +110,17 @@
   border: 1px solid grey;
 }
 
-.modal-form-container {
+.modal-form-container form {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 80%;
+}
+
+.modal-form-container input {
+  border: 1px solid grey;
+  border-radius: 2px;
 }
 
 .no-tasks {
@@ -122,14 +130,39 @@
   font-weight: 200;
 }
 
+.task-container {
+  width: 100%;
+  height: 50px;
+  border-radius: 20px;
+  border: 1px solid #727272;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 10px 0;
+
+  animation: task-fadein;
+  animation-duration: 1s;
+}
+
 h1, h2 {
   font-weight: lighter;
+}
+
+@keyframes task-fadein {
+  from {
+    opacity: 0;
+    margin-top: 50px;
+  }
+  to {
+    opacity: 1;
+    margin-top: 0;
+  }
 }
 
 @keyframes fadein {
   from {
     opacity: 0;
-    margin: 300px 0;
+    margin: 200px 0;
   }
 
   to {

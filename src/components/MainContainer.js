@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import NewTaskModal from "./NewTaskModal";
+import Task from "./Task";
+import { Input } from '@chakra-ui/react'
 
 const MainContainer = (props) => {
     let date = new Date();
@@ -24,20 +26,22 @@ const MainContainer = (props) => {
     ];
 
     const [taskBody, setTaskBody] = useState("");
+    const [deadline, setDeadline] = useState();
     const [tasks, setTasks] = useState([]);
 
     const handleSubmit = event => {
         event.preventDefault();
-        if (taskBody.length === 0) {
-            setTaskBody("Please input a valid message.")
+        if (taskBody.length === 0 || !deadline) {
+            console.log("Error");
         }
         else {
+            let newTask = {description: taskBody, deadline: deadline}
             setTasks((task) => [
                 ...tasks,
-                taskBody
+                newTask,
             ]);
-            setTaskBody("");
         }
+        setTaskBody("");
     }
 
     return (
@@ -51,16 +55,27 @@ const MainContainer = (props) => {
                     {tasks.length === 0 ? (
                         <div class="no-tasks">NO TASKS EXIST TODAY</div>
                     ) : (tasks.map(task =>
-                        <li>{task}</li>))}
-                    <NewTaskModal>
-                        <div class="modal-form-container">
-                            <form onSubmit={handleSubmit}>
-                                <input id="task-input" value={taskBody} onChange={event => setTaskBody(event.target.value)}></input>
-                                <button type="submit">ADD TASK</button>
-                            </form>
-                        </div>
-                    </NewTaskModal>
+                        <Task description={task.description} deadline={task.deadline}/>))}
                 </div>
+                <NewTaskModal>
+                    <div class="modal-form-container">
+                        <form onSubmit={handleSubmit}>
+                            <label for="task-input">TASK DESCRIPTION</label>
+                            <input id="task-input" value={taskBody} onChange={event => setTaskBody(event.target.value)}></input>
+                            <br></br>
+                            <label for="deadline-input">TASK DEADLINE</label>
+                            <Input
+                                placeholder="Select Date and Time"
+                                size="md"
+                                type="date"
+                                id="deadline-input"
+                                value={deadline}
+                                onChange={event => setDeadline(event.target.value)}
+                            />
+                            <button type="submit">ADD TASK</button>
+                        </form>
+                    </div>
+                </NewTaskModal>
             </div>
         </div>
     )

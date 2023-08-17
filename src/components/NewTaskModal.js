@@ -19,14 +19,17 @@ function NewTaskModal(props) {
                 <Button onClick={onOpen}>NEW TASK</Button>
             </div>
             <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalContent className="modal-container" width="25%" height="25%">
-                    <ModalHeader mt={3} fontWeight="500">CREATE NEW TASK</ModalHeader>
-                    <ModalBody mt={20}>
+                <ModalContent className="modal-container" width="25%" height="30%" minW="200px">
+                    <ModalHeader mt={10} 
+                    fontWeight="300" 
+                    justifyContent="space-between"
+                    alignItems="center"
+                    display="flex" width="80%">CREATE NEW TASK
+                    <ModalCloseButton />
+                    </ModalHeader>
+                    <ModalBody mt={20} w="80%" h="80%">
                         {props.children}
                     </ModalBody>
-                    <ModalFooter mt={30}>
-                        <ModalCloseButton></ModalCloseButton>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>
