@@ -3,7 +3,10 @@ import { useState } from "react";
 import NewTaskModal from "./NewTaskModal";
 import Task from "./Task";
 import { Input } from '@chakra-ui/react'
-import { useDisclosure } from "@chakra-ui/react";
+import { Spinner } from '@chakra-ui/react'
+import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "./LoginButton";
+import LogoutButton from "./LogoutButton";
 
 const MainContainer = (props) => {
     let date = new Date();
@@ -30,6 +33,7 @@ const MainContainer = (props) => {
     const [deadline, setDeadline] = useState();
     const [tasks, setTasks] = useState([]);
     const [flag, setFlag] = useState();
+    const { user, isAuthenticated, isLoading } = useAuth0();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -91,6 +95,11 @@ const MainContainer = (props) => {
                         </form>
                     </div>
                 </NewTaskModal>
+                <LoginButton></LoginButton>
+                {isLoading && (<Spinner/>)}
+                {isAuthenticated && (
+                    <div>Welcome back, {user.name}!<LogoutButton /></div>
+                )}
             </div>
         </div>
     )
