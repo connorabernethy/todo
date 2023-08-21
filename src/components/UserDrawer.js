@@ -37,7 +37,7 @@ function UserDrawer(props) {
             <DrawerHeader>Welcome back, {user.name}!</DrawerHeader>
   
             <DrawerBody>
-              <Input placeholder='Type here...' />
+              <img src={user.picture}></img>
             </DrawerBody>
   
             <DrawerFooter>
