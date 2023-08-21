@@ -11,7 +11,6 @@ const Task = (props) => {
                     <svg xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" sketch="http://www.bohemiancoding.com/sketch/ns" width="20px" height="20px" viewBox="0 -3 32 32" version="1.1">
 
                         <title>checkmark</title>
-                        <desc>Created with Sketch Beta.</desc>
                         <defs>
 
                         </defs>

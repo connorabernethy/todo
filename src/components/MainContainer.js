@@ -7,6 +7,7 @@ import { Spinner } from '@chakra-ui/react'
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
+import UserDrawer from "./UserDrawer";
 
 const MainContainer = (props) => {
     let date = new Date();
@@ -33,7 +34,7 @@ const MainContainer = (props) => {
     const [deadline, setDeadline] = useState();
     const [tasks, setTasks] = useState([]);
     const [flag, setFlag] = useState();
-    const { user, isAuthenticated, isLoading } = useAuth0();
+    const {user, isAuthenticated, isLoading} = useAuth0();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -66,6 +67,7 @@ const MainContainer = (props) => {
                 <header className="todo-header">
                     <h1>TODO LIST</h1>
                     <h2>{months[month]} {day}, {year}</h2>
+                    {isAuthenticated ? <UserDrawer user={user}/> : <LoginButton />}
                 </header>
                 <div class="content">
                     {tasks.length === 0 ? (
@@ -95,11 +97,6 @@ const MainContainer = (props) => {
                         </form>
                     </div>
                 </NewTaskModal>
-                <LoginButton></LoginButton>
-                {isLoading && (<Spinner/>)}
-                {isAuthenticated && (
-                    <div>Welcome back, {user.name}!<LogoutButton /></div>
-                )}
             </div>
         </div>
     )
