@@ -9,7 +9,8 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    Input
+    Input,
+    Stack
   } from '@chakra-ui/react'
 
   import { useDisclosure } from '@chakra-ui/react'
@@ -34,10 +35,13 @@ function UserDrawer(props) {
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Welcome back, {user.name}!</DrawerHeader>
+            <DrawerHeader>Welcome back, {user.nickname}!</DrawerHeader>
   
             <DrawerBody>
               <img src={user.picture}></img>
+              <Stack width='100%' height='80%' marginTop='20px'>
+                <div className='color-circle'></div>
+              </Stack>
             </DrawerBody>
   
             <DrawerFooter>
