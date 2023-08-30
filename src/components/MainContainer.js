@@ -1,12 +1,10 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useState } from "react";
 import NewTaskModal from "./NewTaskModal";
 import Task from "./Task";
 import { Input } from '@chakra-ui/react'
-import { Spinner } from '@chakra-ui/react'
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
 import UserDrawer from "./UserDrawer";
 
 const MainContainer = (props) => {

@@ -9,7 +9,6 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    Input,
     Stack
   } from '@chakra-ui/react'
 
